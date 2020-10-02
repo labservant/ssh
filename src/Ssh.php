@@ -8,19 +8,19 @@ use Symfony\Component\Process\Process;
 
 class Ssh
 {
-    protected string $user;
+    protected $user;
 
-    protected string $host;
+    protected $host;
 
-    protected string $pathToPrivateKey = '';
+    protected $pathToPrivateKey = '';
 
-    protected ?int $port;
+    protected $port;
 
-    protected bool $enableStrictHostChecking = true;
+    protected $enableStrictHostChecking = true;
 
-    protected Closure $processConfigurationClosure;
+    protected $processConfigurationClosure;
 
-    protected Closure $onOutput;
+    protected $onOutput;
 
     public function __construct(string $user, string $host, int $port = null)
     {
@@ -30,9 +30,9 @@ class Ssh
 
         $this->port = $port;
 
-        $this->processConfigurationClosure = fn(Process $process) => null;
+        $this->processConfigurationClosure = function (Process $process) { return null; };
 
-        $this->onOutput = fn($type, $line) => null;
+        $this->onOutput = function ($type, $line) { return null; };
     }
 
     public static function create(...$args): self
